@@ -17,3 +17,5 @@
 - Nguyen Phan Huy - Leader
 - Phan Thanh Vuong
 - Vo Van Hai
+- Phan Quoc Khanh
+- Trinh Hoang
