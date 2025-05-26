@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Manager Dashboard - Long Châu Pharmacy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            font-size: 14px;
+            background-color: #F5F5F5;
+            color: #333;
+        }
+
+        /* Layout */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 220px;
+            background-color: white;
+            box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        .sidebar-header h2 {
+            color: #0A6;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-header p {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .nav-menu li {
+            margin-bottom: 5px;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background-color: #0A6;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            flex: 1;
+            padding: 0;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #219;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 30px;
+        }
+
+        /* Stats Cards Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #0A6;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border: 2px dashed #dee2e6;
+        }
+
+        .chart-placeholder {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #0A6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #095;
+        }
+
+        .btn-secondary {
+            background-color: #219;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #108;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        /* Tables */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            background-color: #F5F5F5;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .filter-controls select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .filter-controls label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Rating Stars */
+        .rating-stars {
+            color: #ffc107;
+        }
+
+        /* Footer */
+        footer {
+            background-color: white;
+            padding: 20px 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #eee;
+            margin-left: 220px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            footer {
+                margin-left: 0;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            .table {
+                font-size: 12px;
+            }
+
+            .filter-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" role="navigation" aria-label="Main navigation">
+            <div class="sidebar-header">
+                <h2>Long Châu Manager</h2>
+                <p>Quản lý cửa hàng</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="active" aria-current="page">Revenue Reports</a></li>
+                <li><a href="#">Invoice Corrections</a></li>
+                <li><a href="#">Customer Ratings</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <h1 class="page-title">Store Manager Dashboard</h1>
+                <div class="user-info">
+                    <span>Manager User</span>
+                    <div class="user-avatar">M</div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="content">
+                <!-- Quick Stats Cards -->
+                <section class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value">12.5M</div>
+                        <div class="stat-label">Today Revenue (VND)</div>
+                        <!-- TODO: Connect to real-time revenue API -->
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">350M</div>
+                        <div class="stat-label">This Month Revenue (VND)</div>
+                        <!-- TODO: Connect to monthly revenue API -->
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">2.1B</div>
+                        <div class="stat-label">Year-to-Date Revenue (VND)</div>
+                        <!-- TODO: Connect to yearly revenue API -->
+                    </div>
+                </section>
+
+                <!-- Daily Sales Chart -->
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Daily Sales Chart</h2>
+                        <div class="filter-controls">
+                            <label for="chartPeriod">Period:</label>
+                            <select id="chartPeriod">
+                                <option value="7days">Last 7 Days</option>
+                                <option value="30days">Last 30 Days</option>
+                                <option value="3months">Last 3 Months</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- TODO: Replace with actual Chart.js implementation -->
+                    <div class="chart-container">
+                        <canvas id="salesChart" width="800" height="300"></canvas>
+                        <div class="chart-placeholder">
+                            TODO: Implement Chart.js sales visualization here<br>
+                            Connect to sales data API and render line/bar chart
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Invoice List -->
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Recent Invoices</h2>
+                        <div class="filter-controls">
+                            <label for="invoiceStatus">Status:</label>
+                            <select id="invoiceStatus">
+                                <option value="all">All Invoices</option>
+                                <option value="completed">Completed</option>
+                                <option value="pending">Pending Correction</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- TODO: Replace with dynamic invoice data -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Invoice ID</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Amount (VND)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>INV-2025-001</td>
+                                <td>2025-05-26 09:15</td>
+                                <td>Nguyen Van A</td>
+                                <td>250,000</td>
+                                <td>Completed</td>
+                                <td>
+                                    <button class="btn btn-secondary btn-small" title="Edit Invoice">✏️</button>
+                                    <button class="btn btn-danger btn-small" title="Delete Invoice">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>INV-2025-002</td>
+                                <td>2025-05-26 10:30</td>
+                                <td>Tran Thi B</td>
+                                <td>180,000</td>
+                                <td>Pending Correction</td>
+                                <td>
+                                    <button class="btn btn-secondary btn-small" title="Edit Invoice">✏️</button>
+                                    <button class="btn btn-danger btn-small" title="Delete Invoice">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>INV-2025-003</td>
+                                <td>2025-05-26 11:45</td>
+                                <td>Le Van C</td>
+                                <td>320,000</td>
+                                <td>Completed</td>
+                                <td>
+                                    <button class="btn btn-secondary btn-small" title="Edit Invoice">✏️</button>
+                                    <button class="btn btn-danger btn-small" title="Delete Invoice">🗑️</button>
+                                </td>
+                            </tr>
+                            <!-- TODO: Add more invoices dynamically -->
+                        </tbody>
+                    </table>
+                </section>
+
+                
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Nhà thuốc Long Châu</p>
+    </footer>
+
+    <!-- TODO: Add JavaScript for chart rendering, data filtering, and API integration -->
+    <script>
+        // TODO: Implement filter functions for invoices and ratings
+        function filterInvoices() {
+            const status = document.getElementById('invoiceStatus').value;
+            console.log('TODO: Filter invoices by status:', status);
+            // TODO: Filter table rows based on status
+        }
+
+        function filterRatings() {
+            const rating = document.getElementById('ratingFilter').value;
+            console.log('TODO: Filter ratings by stars:', rating);
+            // TODO: Filter table rows based on rating
+        }
+
+        function updateChartPeriod() {
+            const period = document.getElementById('chartPeriod').value;
+            console.log('TODO: Update chart for period:', period);
+            // TODO: Fetch new data and update chart
+        }
+
+        // TODO: Add invoice editing and deletion functions
+        // TODO: Add real-time data refresh functionality
+        // TODO: Add export functionality for reports Initialize Chart.js for sales visualization
+        // const ctx = document.getElementById('salesChart').getContext('2d');
+        // TODO: Connect to sales data API and render chart
+
+        // TODO:

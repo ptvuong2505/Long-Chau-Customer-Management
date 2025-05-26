@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Long Châu Pharmacy</title>
+    <link rel="stylesheet" href="css/admin_style.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- Sidebar Navigation -->
+      <nav class="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="sidebar-header">
+          <h2>Long Châu Admin</h2>
+          <p>Quản trị hệ thống</p>
+        </div>
+        <ul class="nav-menu">
+          <li>
+            <a href="#" class="active" aria-current="page">User Management</a>
+          </li>
+          <li onclick="openCreateUserModal()">
+            <a href="#">Create Account</a>
+          </li>
+          <li><a href="#">System Settings</a></li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Top Bar -->
+        <header class="top-bar">
+          <h1 class="page-title">Admin Dashboard</h1>
+          <div class="user-info">
+            <span>Admin User</span>
+            <div class="user-avatar">A</div>
+          </div>
+        </header>
+
+        <!-- Content Area -->
+        <main class="content">
+          <!-- User Management Section -->
+          <section class="card">
+            <div class="card-header">
+              <h2 class="card-title">User Management</h2>
+            </div>
+
+            <!-- TODO: Replace with dynamic user data from API -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>001</td>
+                  <td>Nguyen Van A</td>
+                  <td>Manager</td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-small">Edit</button>
+                    <button class="btn btn-warning btn-small">Disable</button>
+                    <button class="btn btn-danger btn-small">Delete</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>002</td>
+                  <td>Tran Thi B</td>
+                  <td>Customer Service</td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-small">Edit</button>
+                    <button class="btn btn-warning btn-small">Disable</button>
+                    <button class="btn btn-danger btn-small">Delete</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>003</td>
+                  <td>Le Van C</td>
+                  <td>Employee</td>
+                  <td><span class="badge badge-warning">Disabled</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-small">Edit</button>
+                    <button class="btn btn-primary btn-small">Enable</button>
+                    <button class="btn btn-danger btn-small">Delete</button>
+                  </td>
+                </tr>
+                <!-- TODO: Add more users dynamically -->
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Reset Password Queue -->
+          <section class="card">
+            <div class="card-header">
+              <h2 class="card-title">History Changing Password</h2>
+            </div>
+
+            <!-- TODO: Replace with dynamic password reset data -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Request Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Pham Van D</td>
+                  <td>2025-05-26 08:30</td>
+                  <td><span class="badge badge-warning">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Hoang Thi E</td>
+                  <td>2025-05-25 14:15</td>
+                  <td><span class="badge badge-success">Completed</span></td>
+                </tr>
+                <!-- TODO: Add more reset requests dynamically -->
+              </tbody>
+            </table>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- Create User Modal Placeholder -->
+    <div id="createUserModal" class="modal-placeholder">
+      <div class="modal-content">
+        <h3>Create New User</h3>
+        <p>TODO: Add user creation form with validation</p>
+        <button class="btn btn-secondary" onclick="closeCreateUserModal()">
+          Close
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Nhà thuốc Long Châu</p>
+    </footer>
+
+    <!-- TODO: Add JavaScript for modal functionality, user management, and API calls -->
+    <script>
+      // TODO: Implement modal functions
+      function openCreateUserModal() {
+        document.getElementById("createUserModal").style.display = "block";
+        console.log("TODO: Open create user modal");
+      }
+
+      function closeCreateUserModal() {
+        document.getElementById("createUserModal").style.display = "none";
+        console.log("TODO: Close create user modal");
+      }
+
+      // TODO: Add user management functions (edit, disable, delete)
+      // TODO: Add password reset approval/rejection functions
+      // TODO: Add real-time data updates
+    </script>
+  </body>
+</html>
