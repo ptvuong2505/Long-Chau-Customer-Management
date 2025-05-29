@@ -7,7 +7,6 @@
 *.iml
 *.iws
 out/
-.smarttomcat/
 
 # NetBeans
 nbproject/private/
